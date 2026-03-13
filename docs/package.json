@@ -1,0 +1,8 @@
+{
+  "name": "ice-docs",
+  "private": true,
+  "scripts": {
+    "build": "bun run ../src/cli/index.ts build",
+    "serve": "bun run ../src/cli/index.ts serve"
+  }
+}

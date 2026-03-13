@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.data.title %}{{ page.data.title }} — {% endif %}{{ site.title }}</title>
+  <style>
+    :root {
+      --sidebar-w: 260px;
+      --max-content: 52rem;
+      --c-bg: #fff;
+      --c-sidebar: #f6f8fa;
+      --c-border: #e1e4e8;
+      --c-text: #24292e;
+      --c-muted: #586069;
+      --c-link: #0366d6;
+      --c-link-hover: #0246a2;
+      --c-code-bg: #f6f8fa;
+      --c-pre-bg: #0d1117;
+      --c-pre-text: #e6edf3;
+      --c-accent: #0366d6;
+      --c-section: #6a737d;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      color: var(--c-text); line-height: 1.6; display: flex; min-height: 100vh;
+      background: var(--c-bg);
+    }
+    a { color: var(--c-link); text-decoration: none; }
+    a:hover { color: var(--c-link-hover); text-decoration: underline; }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      background: var(--c-sidebar); border-right: 1px solid var(--c-border);
+      padding: 1.5rem 1rem; position: fixed; top: 0; bottom: 0; overflow-y: auto;
+    }
+    .sidebar-title {
+      font-size: 1.25rem; font-weight: 700; color: var(--c-text);
+      display: block; margin-bottom: 1.5rem; text-decoration: none;
+    }
+    .sidebar-title:hover { text-decoration: none; color: var(--c-link); }
+    .sidebar-section {
+      font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--c-section); margin: 1.25rem 0 0.4rem;
+    }
+    .sidebar ul { list-style: none; }
+    .sidebar li { margin-bottom: 0.15rem; }
+    .sidebar li a {
+      display: block; padding: 0.2rem 0.6rem; border-radius: 4px;
+      font-size: 0.875rem; color: var(--c-muted);
+    }
+    .sidebar li a:hover { background: var(--c-border); color: var(--c-text); text-decoration: none; }
+    .sidebar .github-link {
+      display: block; margin-top: 2rem; padding-top: 1rem;
+      border-top: 1px solid var(--c-border); font-size: 0.8rem; color: var(--c-muted);
+    }
+
+    /* Main content */
+    .content-wrap {
+      margin-left: var(--sidebar-w); flex: 1;
+      padding: 2.5rem 3rem; max-width: calc(var(--max-content) + 6rem);
+    }
+    .content-wrap h1 { font-size: 2rem; margin-bottom: 0.75rem; border-bottom: 1px solid var(--c-border); padding-bottom: 0.4rem; }
+    .content-wrap h2 { font-size: 1.5rem; margin: 2rem 0 0.75rem; border-bottom: 1px solid var(--c-border); padding-bottom: 0.3rem; }
+    .content-wrap h3 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; }
+    .content-wrap p { margin-bottom: 1em; }
+    .content-wrap ul, .content-wrap ol { margin: 0 0 1em 1.5em; }
+    .content-wrap li { margin-bottom: 0.25em; }
+    .content-wrap blockquote {
+      border-left: 4px solid var(--c-accent); padding: 0.5em 1em;
+      margin: 0 0 1em; color: var(--c-muted); background: var(--c-sidebar);
+    }
+    .content-wrap table { border-collapse: collapse; width: 100%; margin-bottom: 1em; }
+    .content-wrap th, .content-wrap td { border: 1px solid var(--c-border); padding: 0.5em 0.75em; text-align: left; }
+    .content-wrap th { background: var(--c-sidebar); font-weight: 600; }
+    .content-wrap hr { border: none; border-top: 1px solid var(--c-border); margin: 2rem 0; }
+
+    /* Code */
+    code {
+      background: var(--c-code-bg); padding: 0.15em 0.35em; border-radius: 3px;
+      font-size: 0.875em; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+    pre {
+      background: var(--c-pre-bg); color: var(--c-pre-text);
+      padding: 1rem 1.25rem; border-radius: 6px; overflow-x: auto; margin-bottom: 1em;
+      font-size: 0.875rem; line-height: 1.5;
+    }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: static; width: 100%; border-right: none;
+        border-bottom: 1px solid var(--c-border); padding: 1rem;
+      }
+      body { flex-direction: column; }
+      .content-wrap { margin-left: 0; padding: 1.5rem 1rem; }
+      .sidebar-section { display: inline; margin-right: 1rem; }
+      .sidebar ul { display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; }
+      .sidebar li { margin-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <a href="{{ site.baseUrl }}" class="sidebar-title">{{ site.title }}</a>
+
+    <div class="sidebar-section">Guides</div>
+    <ul>
+      <li><a href="{{ site.baseUrl }}">Home</a></li>
+      <li><a href="{{ site.baseUrl }}getting-started/">Getting Started</a></li>
+      <li><a href="{{ site.baseUrl }}site-structure/">Site Structure</a></li>
+      <li><a href="{{ site.baseUrl }}configuration/">Configuration</a></li>
+      <li><a href="{{ site.baseUrl }}deployment/">Deployment</a></li>
+    </ul>
+
+    <div class="sidebar-section">Reference</div>
+    <ul>
+      <li><a href="{{ site.baseUrl }}templates/">Templates</a></li>
+      <li><a href="{{ site.baseUrl }}collections/">Collections</a></li>
+      <li><a href="{{ site.baseUrl }}plugins/">Plugins</a></li>
+      <li><a href="{{ site.baseUrl }}assets/">Assets</a></li>
+      <li><a href="{{ site.baseUrl }}cli/">CLI</a></li>
+    </ul>
+
+    <a href="https://github.com/shayarnett/ice" class="github-link">GitHub →</a>
+  </nav>
+
+  <div class="content-wrap">
+    {{ content }}
+  </div>
+</body>
+</html>
