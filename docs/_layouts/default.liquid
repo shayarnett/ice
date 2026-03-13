@@ -21,6 +21,36 @@
       --c-accent: #0366d6;
       --c-section: #6a737d;
     }
+    [data-theme="dark"] {
+      --c-bg: #0d1117;
+      --c-sidebar: #161b22;
+      --c-border: #30363d;
+      --c-text: #e6edf3;
+      --c-muted: #8b949e;
+      --c-link: #58a6ff;
+      --c-link-hover: #79c0ff;
+      --c-code-bg: #161b22;
+      --c-pre-bg: #1c2128;
+      --c-pre-text: #e6edf3;
+      --c-accent: #58a6ff;
+      --c-section: #8b949e;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --c-bg: #0d1117;
+        --c-sidebar: #161b22;
+        --c-border: #30363d;
+        --c-text: #e6edf3;
+        --c-muted: #8b949e;
+        --c-link: #58a6ff;
+        --c-link-hover: #79c0ff;
+        --c-code-bg: #161b22;
+        --c-pre-bg: #1c2128;
+        --c-pre-text: #e6edf3;
+        --c-accent: #58a6ff;
+        --c-section: #8b949e;
+      }
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -56,6 +86,12 @@
       display: block; margin-top: 2rem; padding-top: 1rem;
       border-top: 1px solid var(--c-border); font-size: 0.8rem; color: var(--c-muted);
     }
+    .theme-toggle {
+      display: inline-block; margin-top: 0.75rem; padding: 0.3rem 0.6rem;
+      border: 1px solid var(--c-border); border-radius: 4px; background: var(--c-bg);
+      color: var(--c-muted); font-size: 0.75rem; cursor: pointer; line-height: 1;
+    }
+    .theme-toggle:hover { color: var(--c-text); border-color: var(--c-muted); }
 
     /* Main content */
     .content-wrap {
@@ -102,6 +138,14 @@
       .sidebar li { margin-bottom: 0; }
     }
   </style>
+  <script>
+    (function() {
+      var saved = localStorage.getItem("theme");
+      if (saved) {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    })();
+  </script>
 </head>
 <body>
   <nav class="sidebar">
@@ -126,6 +170,26 @@
     </ul>
 
     <a href="https://github.com/shayarnett/ice" class="github-link">GitHub →</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">Toggle theme</button>
+    <script>
+      (function() {
+        var btn = document.getElementById("theme-toggle");
+        btn.addEventListener("click", function() {
+          var html = document.documentElement;
+          var current = html.getAttribute("data-theme");
+          var next;
+          if (current === "dark") {
+            next = "light";
+          } else if (current === "light") {
+            next = "dark";
+          } else {
+            next = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark";
+          }
+          html.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+        });
+      })();
+    </script>
   </nav>
 
   <div class="content-wrap">
