@@ -24,9 +24,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      - run: bun install --ignore-scripts
-      - run: bun run scripts/patch-droplet.ts
-      - run: rm -rf /home/runner/.bun/install/cache
+      - run: bun install
       - run: cd docs && bun run ../src/cli/index.ts build
       - uses: actions/upload-pages-artifact@v3
         with:

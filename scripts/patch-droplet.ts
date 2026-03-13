@@ -28,7 +28,9 @@ async function patch() {
     .replace('const Droplet = require("../droplet");', 'import Droplet from "../droplet.js";')
     .replace('const partials = require("./partials");', 'import partials from "./partials.js";')
     .replace(/const fs = require\("fs"\);/g, 'import fs from "fs";')
-    .replace('module.exports = { Liquid, LiquidError };', 'export { Liquid, LiquidError };');
+    // Remove the express() method's inline import (invalid ESM)
+    .replace(/import fs from "fs";\n\s+fs\.readFile/g, 'const { readFile: _rf } = await import("fs");\n      _rf')
+    .replace(/^module\.exports\s*=\s*.+$/m, 'export { Liquid };\nexport const LiquidError = Droplet.LiquidError;');
   await writeFile(compatPath, compat);
 
   // 4. Fix ext/partials.js
