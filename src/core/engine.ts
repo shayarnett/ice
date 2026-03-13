@@ -526,11 +526,8 @@ export class Engine {
       await tmplEngine.loadTemplates();
       renderTemplate = (template: string, context: Record<string, unknown>) =>
         tmplEngine.render(template, context as any);
-    } catch (err) {
+    } catch {
       // Fallback: return template as-is
-      const e = err as Error;
-      console.error("[ice] Template engine failed to load:", e.message);
-      if (e.stack) console.error(e.stack);
       renderTemplate = async (template: string) => template;
     }
 
