@@ -1,0 +1,13 @@
+{
+  "name": "my-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ice serve",
+    "build": "ice build"
+  },
+  "dependencies": {
+    "ice-ssg": "^0.1.0"
+  }
+}

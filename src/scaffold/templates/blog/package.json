@@ -1,0 +1,14 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ice serve",
+    "build": "ice build",
+    "clean": "ice clean"
+  },
+  "dependencies": {
+    "ice-ssg": "^0.1.0"
+  }
+}
