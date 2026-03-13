@@ -528,7 +528,9 @@ export class Engine {
         tmplEngine.render(template, context as any);
     } catch (err) {
       // Fallback: return template as-is
-      console.error("[ice] Template engine failed to load:", err);
+      const e = err as Error;
+      console.error("[ice] Template engine failed to load:", e.message);
+      if (e.stack) console.error(e.stack);
       renderTemplate = async (template: string) => template;
     }
 
