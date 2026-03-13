@@ -24,9 +24,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      - run: bun install --ignore-scripts
-      - run: bun run scripts/patch-droplet.ts
-      - run: cd docs && bun run ../src/cli/index.ts build
+      - run: bun install
+      - run: bun build src/cli/index.ts --outfile dist/ice.mjs --target bun
+      - run: cd docs && bun run ../dist/ice.mjs build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs/_site
