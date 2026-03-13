@@ -27,8 +27,6 @@ jobs:
       - run: bun install --ignore-scripts
       - run: bun run scripts/patch-droplet.ts
       - run: cd docs && bun run ../src/cli/index.ts build
-        env:
-          BUN_RUNTIME_TRANSPILER_CACHE_PATH: "0"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs/_site
