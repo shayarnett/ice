@@ -4,10 +4,7 @@ interface LiquidLike {
   registerTag(name: string, fn: unknown): void;
 }
 
-export function registerTags(
-  engine: LiquidLike,
-  _config: IceConfig,
-): void {
+export function registerTags(engine: LiquidLike, _config: IceConfig): void {
   // {% highlight lang %}...{% endhighlight %} — pass-through code block tag
   // This is a compatibility shim; actual highlighting is done by markdown-it + shiki
   engine.registerTag("highlight", (tag: string) => {

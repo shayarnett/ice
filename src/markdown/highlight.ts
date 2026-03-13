@@ -13,8 +13,22 @@ export async function createShikiHighlighter(
     highlighter = await createHighlighter({
       themes: [theme],
       langs: [
-        "javascript", "typescript", "html", "css", "json", "yaml", "markdown",
-        "bash", "shell", "ruby", "python", "go", "rust", "sql", "jsx", "tsx",
+        "javascript",
+        "typescript",
+        "html",
+        "css",
+        "json",
+        "yaml",
+        "markdown",
+        "bash",
+        "shell",
+        "ruby",
+        "python",
+        "go",
+        "rust",
+        "sql",
+        "jsx",
+        "tsx",
       ],
     });
   } catch {

@@ -15,7 +15,7 @@ export async function serve(flags: Record<string, string | boolean>) {
   const engine = new Engine(config);
   await engine.build({ drafts: !!flags.drafts, incremental: false, profile: false });
 
-  const server = await startServer(config, engine);
+  const _server = await startServer(config, engine);
   logger.success(`Dev server running at http://localhost:${config.serve.port}`);
 
   if (flags.open) {

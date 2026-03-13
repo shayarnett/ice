@@ -208,7 +208,15 @@ export interface CacheManifest {
 
 // ── Discovery ───────────────────────────────────────────────────────
 
-export type FileType = "page" | "post" | "collection" | "data" | "asset" | "layout" | "include" | "ignore";
+export type FileType =
+  | "page"
+  | "post"
+  | "collection"
+  | "data"
+  | "asset"
+  | "layout"
+  | "include"
+  | "ignore";
 
 export interface DiscoveredFile {
   absolutePath: string;

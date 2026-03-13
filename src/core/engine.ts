@@ -314,7 +314,7 @@ export class Engine {
     await this.hooks.emit("beforeRender", this.hookContext());
 
     // Incremental: determine which pages need re-rendering
-    let pagesToRender = [...this.pages, ...this.posts as Page[]];
+    let pagesToRender = [...this.pages, ...(this.posts as Page[])];
     if (options.incremental) {
       const changedFiles = new Set<string>();
       for (const page of pagesToRender) {
@@ -408,7 +408,10 @@ export class Engine {
   /**
    * Parse a discovered file into a Page.
    */
-  private async parseFile(file: DiscoveredFile, permalinkPattern: string | null): Promise<Page | null> {
+  private async parseFile(
+    file: DiscoveredFile,
+    permalinkPattern: string | null,
+  ): Promise<Page | null> {
     let raw: string;
     try {
       raw = await readFile(file.absolutePath, "utf-8");
@@ -498,9 +501,7 @@ export class Engine {
       try {
         const raw = await readFile(file.absolutePath, "utf-8");
         const parsed = parseFrontmatter(raw);
-        const name = file.relativePath
-          .replace(/^_layouts\//, "")
-          .replace(/\.\w+$/, "");
+        const name = file.relativePath.replace(/^_layouts\//, "").replace(/\.\w+$/, "");
         layouts.set(name, { content: parsed.content, data: parsed.data });
       } catch {
         // Skip unreadable layouts
@@ -592,10 +593,12 @@ export class Engine {
  * docs/guide.md → /docs/guide/
  */
 function filePathToUrl(relativePath: string): string {
-  let url = "/" + relativePath
-    .replace(/\.(md|markdown|html|liquid)$/, "")
-    .replace(/\/index$/, "")
-    .replace(/^index$/, "");
+  let url =
+    "/" +
+    relativePath
+      .replace(/\.(md|markdown|html|liquid)$/, "")
+      .replace(/\/index$/, "")
+      .replace(/^index$/, "");
 
   if (url !== "/" && !url.endsWith("/")) {
     url += "/";

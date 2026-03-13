@@ -25,12 +25,11 @@ export function expandPagination(
     const start = i * perPage;
     const items = collection.slice(start, start + perPage);
 
-    const url = pageNum === 1 ? ensureTrailing(baseUrl) : ensureTrailing(`${baseUrl}/page/${pageNum}`);
+    const url =
+      pageNum === 1 ? ensureTrailing(baseUrl) : ensureTrailing(`${baseUrl}/page/${pageNum}`);
     const firstUrl = ensureTrailing(baseUrl);
     const lastUrl =
-      totalPages === 1
-        ? ensureTrailing(baseUrl)
-        : ensureTrailing(`${baseUrl}/page/${totalPages}`);
+      totalPages === 1 ? ensureTrailing(baseUrl) : ensureTrailing(`${baseUrl}/page/${totalPages}`);
 
     const previousUrl =
       pageNum === 1
@@ -56,10 +55,7 @@ export function expandPagination(
     const outputPath =
       pageNum === 1
         ? page.outputPath
-        : posix.join(
-            posix.dirname(page.outputPath),
-            `page/${pageNum}/index.html`,
-          );
+        : posix.join(posix.dirname(page.outputPath), `page/${pageNum}/index.html`);
 
     const paginatedPage: Page = {
       ...page,

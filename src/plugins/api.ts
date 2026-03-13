@@ -1,10 +1,4 @@
-import type {
-  HookName,
-  HookCallback,
-  IceConfig,
-  IcePluginAPI,
-  Page,
-} from "../types";
+import type { HookName, HookCallback, IceConfig, IcePluginAPI, Page } from "../types";
 import { HookSystem } from "./hooks";
 
 export class PluginAPI implements IcePluginAPI {

@@ -5,7 +5,7 @@ import type { Page, IceConfig } from "../types";
 /**
  * Write a rendered page to the output directory.
  */
-export async function writePage(page: Page, config: IceConfig): Promise<void> {
+export async function writePage(page: Page, _config: IceConfig): Promise<void> {
   const outPath = page.outputPath;
   await mkdir(dirname(outPath), { recursive: true });
   await writeFile(outPath, page.content, "utf-8");

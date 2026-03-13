@@ -2,7 +2,7 @@ import type { IceConfig, AssetManifest } from "../types";
 import { MarkdownEngine } from "../markdown/index";
 
 interface LiquidLike {
-  registerFilter(name: string, fn: (...args: unknown[]) => unknown): void;
+  registerFilter(name: string, fn: (...args: any[]) => unknown): void;
 }
 
 export function registerFilters(

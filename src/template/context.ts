@@ -1,10 +1,4 @@
-import type {
-  Page,
-  SiteContext,
-  Collection,
-  Paginator,
-  TemplateContext,
-} from "../types";
+import type { Page, SiteContext, Collection, Paginator, TemplateContext } from "../types";
 
 export function buildContext(
   page: Page,

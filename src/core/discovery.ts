@@ -1,9 +1,17 @@
-import { join, relative, sep } from "path";
+import { join, sep } from "path";
 import { Glob } from "bun";
 import type { IceConfig, DiscoveredFile, FileType } from "../types";
 
 const IGNORE_DIRS = new Set(["_plugins", "_site", ".ice-cache", "node_modules", ".git"]);
-const IGNORE_FILES = new Set(["ice.config.ts", "ice.config.js", "package.json", "package-lock.json", "bun.lock", "bun.lockb", "tsconfig.json"]);
+const IGNORE_FILES = new Set([
+  "ice.config.ts",
+  "ice.config.js",
+  "package.json",
+  "package-lock.json",
+  "bun.lock",
+  "bun.lockb",
+  "tsconfig.json",
+]);
 const CONTENT_EXTENSIONS = new Set([".md", ".markdown", ".html", ".htm", ".liquid"]);
 const DATA_EXTENSIONS = new Set([".yml", ".yaml", ".json", ".csv", ".tsv"]);
 

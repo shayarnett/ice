@@ -5,10 +5,7 @@ import type { IceConfig, IcePlugin, IcePluginAPI } from "../types";
 /**
  * Load plugins from config.plugins (npm packages) and auto-load from _plugins/ directory.
  */
-export async function loadPlugins(
-  config: IceConfig,
-  api: IcePluginAPI,
-): Promise<void> {
+export async function loadPlugins(config: IceConfig, api: IcePluginAPI): Promise<void> {
   // 1. Load plugins listed in config.plugins (npm packages or local paths)
   for (const specifier of config.plugins) {
     const plugin = await loadPluginModule(specifier);
@@ -21,9 +18,7 @@ export async function loadPlugins(
   const pluginsDir = join(config.root, "_plugins");
   if (await exists(pluginsDir)) {
     const entries = await readdir(pluginsDir);
-    const pluginFiles = entries
-      .filter((f) => f.endsWith(".ts") || f.endsWith(".js"))
-      .sort();
+    const pluginFiles = entries.filter((f) => f.endsWith(".ts") || f.endsWith(".js")).sort();
 
     for (const file of pluginFiles) {
       const pluginPath = join(pluginsDir, file);

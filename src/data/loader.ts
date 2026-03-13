@@ -8,9 +8,7 @@ import { parse as parseYaml } from "yaml";
  * Nested directories become nested objects.
  * Keys are filenames without extension.
  */
-export async function loadData(
-  dataDir: string,
-): Promise<Record<string, unknown>> {
+export async function loadData(dataDir: string): Promise<Record<string, unknown>> {
   try {
     await stat(dataDir);
   } catch {

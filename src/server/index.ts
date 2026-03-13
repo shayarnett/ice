@@ -5,7 +5,7 @@ import type { IceConfig } from "../types";
 import { LiveReloadServer } from "./livereload";
 
 interface Engine {
-  build(opts: { incremental: boolean; drafts: boolean; profile: boolean }): Promise<void>;
+  build(opts: { incremental: boolean; drafts: boolean; profile: boolean }): Promise<unknown>;
 }
 
 /**
@@ -48,7 +48,7 @@ export async function startServer(config: IceConfig, engine: Engine) {
 
       const content = await readFile(filePath);
       const contentType = getContentType(filePath);
-      let body: string | Buffer = content;
+      let body: string | Uint8Array = content;
 
       // Inject livereload into HTML
       if (useLiveReload && contentType === "text/html; charset=utf-8") {
@@ -56,7 +56,7 @@ export async function startServer(config: IceConfig, engine: Engine) {
         body = liveReload.inject(html);
       }
 
-      return new Response(body, {
+      return new Response(body as BodyInit, {
         headers: { "Content-Type": contentType },
       });
     },
@@ -76,7 +76,7 @@ export async function startServer(config: IceConfig, engine: Engine) {
 
   // Watch for file changes and rebuild
   let rebuilding = false;
-  const watcher = watch(config.root, { recursive: true }, async (event, filename) => {
+  const _watcher = watch(config.root, { recursive: true }, async (_event, filename) => {
     if (!filename) return;
     // Skip output dir, cache dir, and dotfiles
     if (
@@ -104,13 +104,10 @@ export async function startServer(config: IceConfig, engine: Engine) {
   return server;
 }
 
-async function resolveFilePath(
-  outDir: string,
-  pathname: string,
-): Promise<string | null> {
+async function resolveFilePath(outDir: string, pathname: string): Promise<string | null> {
   // Try exact path
   const exact = join(outDir, pathname);
-  if (await exists(exact) && !isDirectory(exact)) {
+  if ((await exists(exact)) && !isDirectory(exact)) {
     return exact;
   }
 
@@ -131,7 +128,7 @@ async function resolveFilePath(
 
 function isDirectory(path: string): boolean {
   try {
-    const stat = Bun.file(path);
+    const _stat = Bun.file(path);
     // Bun.file doesn't have isDirectory — rely on exists + index.html fallback
     return false;
   } catch {

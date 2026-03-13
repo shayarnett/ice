@@ -57,14 +57,16 @@ export async function processAssets(
  * Simple regex-based CSS minification: remove comments and collapse whitespace.
  */
 function minifyCss(css: string): string {
-  return css
-    // Remove block comments
-    .replace(/\/\*[\s\S]*?\*\//g, "")
-    // Remove newlines and collapse whitespace
-    .replace(/\s+/g, " ")
-    // Remove spaces around delimiters
-    .replace(/\s*([{}:;,])\s*/g, "$1")
-    // Remove trailing semicolons before closing braces
-    .replace(/;}/g, "}")
-    .trim();
+  return (
+    css
+      // Remove block comments
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      // Remove newlines and collapse whitespace
+      .replace(/\s+/g, " ")
+      // Remove spaces around delimiters
+      .replace(/\s*([{}:;,])\s*/g, "$1")
+      // Remove trailing semicolons before closing braces
+      .replace(/;}/g, "}")
+      .trim()
+  );
 }

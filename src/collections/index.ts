@@ -62,9 +62,7 @@ export class CollectionManager {
         const bVal = b.data[field];
 
         if (aVal instanceof Date && bVal instanceof Date) {
-          return desc
-            ? bVal.getTime() - aVal.getTime()
-            : aVal.getTime() - bVal.getTime();
+          return desc ? bVal.getTime() - aVal.getTime() : aVal.getTime() - bVal.getTime();
         }
 
         const aStr = String(aVal ?? "");

@@ -1,5 +1,4 @@
 import { watch, type FSWatcher } from "fs";
-import { relative } from "path";
 import type { IceConfig } from "../types";
 
 export type WatchEventType = "change" | "add" | "remove";

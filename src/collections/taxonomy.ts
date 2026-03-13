@@ -1,20 +1,14 @@
 import { join } from "path";
 import type { Page, IceConfig } from "../types";
 
-export function buildTaxonomyPages(
-  pages: Page[],
-  config: IceConfig,
-): Page[] {
+export function buildTaxonomyPages(pages: Page[], config: IceConfig): Page[] {
   const taxonomyPages: Page[] = [];
 
   for (const [taxonomy, taxConfig] of Object.entries(config.taxonomies)) {
     const grouped = collectValues(pages, taxonomy);
 
     for (const [value, matchingPages] of Object.entries(grouped)) {
-      const url = taxConfig.permalink.replace(
-        `:${singularize(taxonomy)}`,
-        slugify(value),
-      );
+      const url = taxConfig.permalink.replace(`:${singularize(taxonomy)}`, slugify(value));
 
       const taxonomyPage: Page = {
         sourcePath: "",
@@ -43,10 +37,7 @@ export function buildTaxonomyPages(
   return taxonomyPages;
 }
 
-function collectValues(
-  pages: Page[],
-  taxonomy: string,
-): Record<string, Page[]> {
+function collectValues(pages: Page[], taxonomy: string): Record<string, Page[]> {
   const result: Record<string, Page[]> = {};
 
   for (const page of pages) {

@@ -3,9 +3,7 @@ import { posix } from "path";
 
 const POST_FILENAME_RE = /^(\d{4})-(\d{2})-(\d{2})-(.+)\.md$/;
 
-export function parsePostFilename(
-  filename: string,
-): { date: Date; slug: string } | null {
+export function parsePostFilename(filename: string): { date: Date; slug: string } | null {
   const match = POST_FILENAME_RE.exec(filename);
   if (!match) return null;
 
@@ -16,18 +14,17 @@ export function parsePostFilename(
   };
 }
 
-export function buildPostsCollection(
-  pages: Page[],
-  config: IceConfig,
-): PostPage[] {
-  const pattern =
-    config.collections.posts?.permalink ?? config.permalink;
+export function buildPostsCollection(pages: Page[], config: IceConfig): PostPage[] {
+  const pattern = config.collections.posts?.permalink ?? config.permalink;
 
   const posts: PostPage[] = pages.map((page) => {
     const date = page.data.date ?? new Date(0);
     const slug =
       (page.data.slug as string | undefined) ??
-      posix.basename(page.relativePath).replace(/\.md$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
+      posix
+        .basename(page.relativePath)
+        .replace(/\.md$/, "")
+        .replace(/^\d{4}-\d{2}-\d{2}-/, "");
 
     const url = resolvePermalink(pattern, date, slug);
 

@@ -1,6 +1,6 @@
 import { join, dirname } from "path";
 import { mkdir, writeFile } from "fs/promises";
-import type { IcePlugin, Page, FeedConfig } from "../../types";
+import type { IcePlugin, Page } from "../../types";
 
 const feedPlugin: IcePlugin = {
   name: "ice:feed",
@@ -11,7 +11,7 @@ const feedPlugin: IcePlugin = {
     if (Object.keys(config.feeds).length === 0) return;
 
     api.on("afterRender", async (ctx) => {
-      for (const [name, feedConfig] of Object.entries(config.feeds)) {
+      for (const [_name, feedConfig] of Object.entries(config.feeds)) {
         const collection = ctx.site.collections[feedConfig.collection];
         const pages = collection?.pages ?? [];
         const items = feedConfig.limit ? pages.slice(0, feedConfig.limit) : pages;
@@ -75,9 +75,7 @@ function generateJsonFeed(title: string, siteUrl: string, items: Page[]): string
       title: page.data.title ?? "Untitled",
       content_html: page.content,
       summary: page.excerpt,
-      date_published: page.data.date
-        ? new Date(page.data.date).toISOString()
-        : undefined,
+      date_published: page.data.date ? new Date(page.data.date).toISOString() : undefined,
     })),
   };
   return JSON.stringify(feed, null, 2);

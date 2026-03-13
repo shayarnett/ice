@@ -56,7 +56,10 @@ export class TemplateEngine {
   private includesDir: string;
   private layoutCache = new Map<string, string>();
 
-  constructor(private config: IceConfig, assetManifest: AssetManifest = {}) {
+  constructor(
+    private config: IceConfig,
+    assetManifest: AssetManifest = {},
+  ) {
     this.layoutsDir = join(config.root, "_layouts");
     this.includesDir = join(config.root, "_includes");
 

@@ -1,4 +1,3 @@
-import { join } from "path";
 import type { Page, IceConfig, SiteContext, Collection, Paginator } from "../types";
 
 export interface RenderDeps {
@@ -104,9 +103,10 @@ export function resolvePermalink(pattern: string, page: Page): string {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
 
-  const categories = Array.isArray(data.categories) && data.categories.length > 0
-    ? (data.categories[0] as string)
-    : "";
+  const categories =
+    Array.isArray(data.categories) && data.categories.length > 0
+      ? (data.categories[0] as string)
+      : "";
 
   let url = pattern
     .replace(/:year/g, year)
